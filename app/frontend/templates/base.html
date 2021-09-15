@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Canary Web</title>
+        <link rel="stylesheet" href="/front/static/css/site.css">
+        <script src="/front/static/js/form.js"></script>
+        {% if additional_head_elements %}
+            {% for element in additional_head_elements %}
+                {{ element |safe }}
+            {% endfor %}
+        {% endif %}
+    </head>
+{% endblock %}
+
+{% block header %}
+    {% include "header.html" %}
+{% endblock %}
+
+{% block body %}
+    <body>
+    {% block main %}
+        <main>
+            {% block main_content %}
+                {# ... #}
+            {% endblock %}
+        </main>
+    {% endblock %}
+
+    </body>
+{% endblock %}
+</html>

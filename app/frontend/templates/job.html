@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    <p>:)</p>
+    <div style="height: auto; width: 100%; overflow-x: auto">
+        <div id="graph">
+
+        </div>
+    </div>
+    <script>
+        function decodeHtml(html) {
+            let txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+        }
+
+        let dot = decodeHtml(`{{ dot }}`);
+        console.log(dot);
+
+        {#dot = dot.join(' ')#}
+        let viz = new Viz();
+
+        viz.renderSVGElement(dot).then(d => {
+            document.getElementById("graph").replaceWith(d);
+        }).catch(error => {
+            // Create a new Viz instance (@see Caveats page for more info)
+            viz = new Viz();
+
+            // Possibly display the error
+            console.error(error);
+        });
+    </script>
+{% endblock %}

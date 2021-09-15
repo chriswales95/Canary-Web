@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block main_content %}
+    <form id="document_form">
+        <label for="document_text">Document</label>
+
+        <textarea name="document_text" id="document_text" rows="12" style="width: 100%"></textarea>
+
+        <div>or...</div>
+        <div>Submit a text file instead</div>
+
+
+        <input name="text_file" type="file" accept="text/plain" max="1">
+        <button id="form_submit" type="button"> Submit</button>
+    </form>
+{% endblock %}

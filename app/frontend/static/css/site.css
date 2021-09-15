@@ -1,0 +1,28 @@
+@import '/front/static/css/vars.css';
+
+* {
+    font-family: "Playfair Display", sans-serif;
+}
+body {
+    margin: 0;
+    background-color: whitesmoke;
+}
+
+#site-header {
+    background-color: var(--primary-colour);
+    padding: 2rem;
+}
+
+#site-header > .site-title {
+    color: #1e2424;
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+main {
+    margin: 2rem;
+}
+
+#document_text {
+    resize: vertical;
+}
