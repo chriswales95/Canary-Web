@@ -1,3 +1,16 @@
+function postText(text) {
+    const canaryEndpoint = "/canary/api/v1/analyse";
+
+    fetch(canaryEndpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:
+            JSON.stringify({document_text: text})
+    }).then(res => res.text().then(hash => window.location.href = `/view/job/${hash}`))
+}
+
 window.addEventListener("DOMContentLoaded", _ => {
 
     document.getElementById('form_submit').addEventListener('click', e => {
@@ -6,25 +19,26 @@ window.addEventListener("DOMContentLoaded", _ => {
         let fd = new FormData(form);
 
         let arg_text = fd.get('document_text');
-        let text_file = fd.get('text_file');
-
-        const canaryEndpoint = "/canary/api/v1/analyse";
 
         if (arg_text.length > 0) {
-            console.log("doin")
-            fetch(canaryEndpoint, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body:
-                    JSON.stringify({document_text: arg_text})
-            }).then(res => res.text().then(console.log))
+            postText(arg_text);
+        }
+    });
 
-        } else if (text_file > 0) {
+    document.getElementById('text_file').addEventListener('change', () => {
+        let form = document.getElementById('document_form');
+        let fd = new FormData(form);
 
-        } else {
-            alert("...");
+        let text_file = fd.get('text_file');
+        if (text_file.size > 0) {
+            // user has upload a text file instead. Read it and send to Canary
+            let fileReader = new FileReader();
+            fileReader.onload = (() => {
+                console.log('///')
+                document.getElementById('document_text').innerText = fileReader.result;
+            })
+            fileReader.readAsText(text_file)
         }
     });
 });
+

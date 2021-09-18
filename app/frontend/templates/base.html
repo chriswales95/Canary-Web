@@ -7,7 +7,12 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Canary Web</title>
         <link rel="stylesheet" href="/front/static/css/site.css">
-        <script src="/front/static/js/form.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+              crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+                crossorigin="anonymous"></script>
         {% if additional_head_elements %}
             {% for element in additional_head_elements %}
                 {{ element |safe }}
@@ -21,15 +26,25 @@
 {% endblock %}
 
 {% block body %}
-    <body>
+    <body class="bg-light d-flex flex-column" style="min-height: 100vh">
     {% block main %}
-        <main>
+        <main class="flex-grow-1">
             {% block main_content %}
                 {# ... #}
             {% endblock %}
         </main>
     {% endblock %}
 
+    {% block footer %}
+        {% include "footer.html" %}
+
+    {% endblock %}
+
+    {% if additional_footer_elements %}
+        {% for element in additional_footer_elements %}
+            {{ element |safe }}
+        {% endfor %}
+    {% endif %}
     </body>
 {% endblock %}
 </html>

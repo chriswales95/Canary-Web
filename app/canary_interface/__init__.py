@@ -33,7 +33,7 @@ def analyse():
 def process(doc_id, doc):
     print(f"Working on {doc_id}")
     analysis = canary.analyse(doc)
-    jobs[doc_id] = analysis
+    jobs[doc_id] = {'analysis': analysis, 'original_document': doc}
     print("Done")
 
 

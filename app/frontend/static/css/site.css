@@ -3,14 +3,23 @@
 * {
     font-family: "Playfair Display", sans-serif;
 }
+
 body {
     margin: 0;
-    background-color: whitesmoke;
 }
 
 #site-header {
     background-color: var(--primary-colour);
     padding: 2rem;
+}
+
+#site-header a {
+    color: black;
+    text-decoration: none;
+}
+
+#site-header a:hover {
+    text-decoration: underline;
 }
 
 #site-header > .site-title {
@@ -25,4 +34,8 @@ main {
 
 #document_text {
     resize: vertical;
+}
+
+.min-cell {
+    min-width: 150px;
 }
