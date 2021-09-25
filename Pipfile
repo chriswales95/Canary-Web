@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 flask = "*"
 canary-am = {path = "/Users/chris/Dev/napier/honours/Canary"}
-celery = "*"
 sadface = "*"
 
 [dev-packages]
