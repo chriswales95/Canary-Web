@@ -32,9 +32,9 @@ window.addEventListener("DOMContentLoaded", _ => {
             // user has upload a text file instead. Read it and send to Canary
             let fileReader = new FileReader();
             fileReader.onload = (() => {
-                document.getElementById('document_text').innerText = fileReader.result;
+                document.getElementById('document_text').innerHTML = fileReader.result;
             })
-            fileReader.readAsText(text_file)
+            fileReader.readAsText(text_file, "utf-8")
         }
     });
 });

@@ -32,9 +32,18 @@ def analyse():
 
 def process(doc_id, doc):
     print(f"Working on {doc_id}")
-    analysis = canary.analyse(doc)
-    jobs[doc_id] = {'analysis': analysis, 'original_document': doc}
-    print("Done")
+    from canary.argument_pipeline import _models_available_on_disk
+    if len(_models_available_on_disk()) < 1:
+        from canary.argument_pipeline import download_pretrained_models
+        download_pretrained_models("all")
+
+    try:
+        analysis = canary.analyse(doc)
+        jobs[doc_id] = {'analysis': analysis, 'original_document': doc}
+    except:
+        jobs[doc_id] = "ERROR"
+    finally:
+        print("Done")
 
 
 @canary_interface.route('/analysis/<string:job_id>')
