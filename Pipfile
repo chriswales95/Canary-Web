@@ -5,10 +5,13 @@ name = "pypi"
 
 [packages]
 flask = "*"
-canary-am = {path = "/Users/chris/Dev/napier/honours/Canary"}
 sadface = "*"
+canary-am = {ref = "development", git = "https://github.com/chriswales95/Canary.git"}
 
 [dev-packages]
 
 [requires]
 python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
