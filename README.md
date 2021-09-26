@@ -2,8 +2,8 @@
 
 A web server built using the Flask micro-framework that interacts with the Canary argument mining library.
 
-** This server, and the Canary library, is still in development and may require some work to get working on your own
-machine. Use at your own risk. **
+**This server, and the Canary library, is still in development and may require some work to get working on your own
+machine. Use at your own risk.**
 
 - [Canary](https://google.com/search?hl=en&q=canary%20argument%20mining)
 - [Flask](https://github.com/pallets/flask/)
