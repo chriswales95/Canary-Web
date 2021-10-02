@@ -1,6 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 import uuid
 import canary
 
@@ -31,25 +31,17 @@ def analyse():
 
 
 def process(doc_id, doc):
+    """Process a job"""
     print(f"Working on {doc_id}")
+
+    # Check if we have the canary models available
     from canary.argument_pipeline import _models_available_on_disk
     if len(_models_available_on_disk()) < 1:
-        from canary.argument_pipeline import download_pretrained_models
-        download_pretrained_models("all")
+        from canary.argument_pipeline import download
+        download("all")
 
     try:
         analysis = canary.analyse(doc)
         jobs[doc_id] = {'analysis': analysis, 'original_document': doc}
-    except:
+    except Exception as e:
         jobs[doc_id] = "ERROR"
-    finally:
-        print("Done")
-
-
-@canary_interface.route('/analysis/<string:job_id>')
-def get_result(job_id):
-    try:
-        job = jobs[str(job_id)]
-        return jsonify(job), 200
-    except:
-        return job_id, 404

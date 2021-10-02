@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
 {% block main_content %}
     <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "error" %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-primary" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <form id="document_form">
             <div class="mb-3">
                 <label class="form-label" for="document_text">Document</label>
                 <textarea class="form-control" name="document_text" id="document_text" rows="12"
-                          style="white-space: pre-wrap;w"></textarea>
+                          style="white-space: pre-wrap;"></textarea>
             </div>
             <div class="row">
                 <div class="col-12 col-lg-6 col-xl-4">

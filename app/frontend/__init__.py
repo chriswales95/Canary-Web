@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template
-from flask import abort
+from flask import Blueprint, render_template, redirect, url_for, flash, abort
 import sadface
 
 from app.canary_interface import jobs
@@ -9,7 +8,7 @@ frontend = Blueprint('frontend', __name__, template_folder='templates', static_f
 
 
 @frontend.route('/')
-def show():
+def index():
     return render_template('index.html',
                            additional_footer_elements=['<script src="/front/static/js/form.js"></script>'])
 
@@ -19,10 +18,15 @@ def view(job_id):
     if job_id in jobs.keys():
         job = jobs[job_id]
 
-        if type(job) is not dict:
+        if job is None:
             return render_template('waiting_page.html',
                                    key=job_id,
-                                   additional_head_elements=[' <meta http-equiv="refresh" content="10" />']), 200
+                                   additional_head_elements=['<meta http-equiv="refresh" content="10" />']), 200
+
+        if type(job) is str and job == "ERROR":
+            flash("Encountered an error when processing the document. "
+                  "Try again or open an issue on our GitHub for support.", "error")
+            return redirect(url_for('frontend.index'))
 
         sadface.sd = job['analysis']
         component_nodes = [n for n in job['analysis']['nodes'] if 'canary' in n['metadata']]
@@ -31,7 +35,10 @@ def view(job_id):
         major_claims = [n for n in component_nodes if n['metadata']['canary']['type'] == 'MajorClaim']
 
         return render_template(
-            'job.html', job=job['analysis'], original_doc=job['original_document'], dot=sadface.export_dot(),
+            'job.html',
+            job=job['analysis'],
+            original_doc=job['original_document'],
+            dot=sadface.export_dot(),
             claims=claims,
             major_claims=major_claims,
             premises=premises,
