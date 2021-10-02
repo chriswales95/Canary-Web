@@ -2,8 +2,8 @@
 
 {% block main_content %}
     <div class="container">
-
         <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
+            {# Nav #}
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview"
                         type="button"
@@ -21,6 +21,21 @@
                         type="button"
                         role="tab" aria-selected="false">Original Text
                 </button>
+            </li>
+            {# Export #}
+            <li role="presentation" style="margin-left:auto;">
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Export
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="/view/job/{{ job_id }}?export=sadface">SADFace</a></li>
+                        <li><a class="dropdown-item" href="/view/job/{{ job_id }}?export=dot">Dot file</a></li>
+                        <li><a class="dropdown-item" href="/view/job/{{ job_id }}?export=original">Original document</a></li>
+                    </ul>
+                </div>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">

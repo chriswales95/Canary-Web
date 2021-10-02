@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, abort
+from flask import Blueprint, render_template, redirect, url_for, flash, abort, request, send_file
 import sadface
 
 from app.canary_interface import jobs
@@ -34,8 +34,28 @@ def view(job_id):
         premises = [n for n in component_nodes if n['metadata']['canary']['type'] == 'Premise']
         major_claims = [n for n in component_nodes if n['metadata']['canary']['type'] == 'MajorClaim']
 
+        # check if export has been selected
+        params = request.args
+        if 'export' in params:
+            import io
+            if params['export'] == 'sadface':
+                sf_export = sadface.export_json()
+                file = io.BytesIO(sf_export.encode("utf-8"))
+                return send_file(file, download_name=f"{job_id}_sadface.json", as_attachment=True), 200
+            elif params['export'] == 'dot':
+                dot_export = sadface.export_dot()
+                file = io.BytesIO(dot_export.encode("utf-8"))
+                return send_file(file, download_name=f"{job_id}.dot", as_attachment=True), 200
+            elif params['export'] == 'original':
+                doc = job['original_document']
+                file = io.BytesIO(doc.encode("utf-8"))
+                return send_file(file, download_name=f"{job_id}_original.txt", as_attachment=True), 200
+            else:
+                abort(404)
+
         return render_template(
             'job.html',
+            job_id=job_id,
             job=job['analysis'],
             original_doc=job['original_document'],
             dot=sadface.export_dot(),
