@@ -33,7 +33,8 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="/view/job/{{ job_id }}?export=sadface">SADFace</a></li>
                         <li><a class="dropdown-item" href="/view/job/{{ job_id }}?export=dot">Dot file</a></li>
-                        <li><a class="dropdown-item" href="/view/job/{{ job_id }}?export=original">Original document</a></li>
+                        <li><a class="dropdown-item" href="/view/job/{{ job_id }}?export=original">Original document</a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -55,10 +56,8 @@
                                     claims: {{ job['metadata']['canary']['number_of_claims'] }}</li>
                                 <li class="list-group-item">Number of
                                     premises: {{ job['metadata']['canary']['number_of_premises'] }}</li>
-                                <li class="list-group-item">Number of support relations
-                                    claims: {{ job['metadata']['canary']['number_of_support_relations'] }}</li>
-                                <li class="list-group-item">Number of attack relations
-                                    claims: {{ job['metadata']['canary']['number_of_attack_relations'] }}</li>
+                                <li class="list-group-item">Number of support relations: {{ job['metadata']['canary']['number_of_support_relations'] }}</li>
+                                <li class="list-group-item">Number of attack relations: {{ job['metadata']['canary']['number_of_attack_relations'] }}</li>
                             </ul>
                         </div>
                     </div>
@@ -67,9 +66,11 @@
                             <div class="card-body">
                                 <div class="card-title">
                                     <div class="h4">Terminology</div>
-                                    <p>A <b>major claim</b> is ...</p>
-                                    <p>A <b>claim</b> is ...</p>
-                                    <p>A <b>premise</b> is ...</p>
+                                    <p>A <b>major claim</b> is a central argument of a text. Usually only present in the
+                                        introduction or conclusion of a text. </p>
+                                    <p>A <b>claim</b> is a controversial statement that one needs to be convinced of
+                                        with supporting evidence.</p>
+                                    <p>A <b>premise</b> is evidence in support of a claim.</p>
                                 </div>
                             </div>
                         </div>
