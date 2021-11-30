@@ -16,4 +16,11 @@ def create_app():
         app.register_blueprint(canary_interface, url_prefix='/canary/api/v1')
         app.register_blueprint(frontend, url_prefix='/')
 
+        # Check if we have the canary models available
+        from canary.argument_pipeline import get_models_not_on_disk
+
+        if len(get_models_not_on_disk()) > 0:
+            from canary.argument_pipeline import download_model
+            download_model("all")
+
         return app

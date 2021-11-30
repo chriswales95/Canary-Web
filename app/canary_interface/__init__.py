@@ -34,12 +34,6 @@ def process(doc_id, doc):
     """Process a job"""
     print(f"Working on {doc_id}")
 
-    # Check if we have the canary models available
-    from canary.argument_pipeline._utils import models_available_on_disk
-    if len(models_available_on_disk()) < 1:
-        from canary.argument_pipeline import download
-        download("all")
-
     try:
         analysis = canary.analyse(doc)
         jobs[doc_id] = {'analysis': analysis, 'original_document': doc}
